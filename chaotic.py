@@ -2,9 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 from time import sleep
-from matplotlib.animation import FuncAnimation
+import matplotlib.animation as animation
 
-fig = plt.subplots()
+fig = plt.figure()
+ax1 = fig.add_subplot(1,1,1)
 plt.style.use('fivethirtyeight')
 
 vortices = int(input("Enter number of Vortices -> "))
@@ -28,12 +29,12 @@ def roll_dice(n_vortice):
 
 def rt_plot(i):
     rdindex = roll_dice(vortices)
-    mid_x = (Vort_x[rdindex] + init_x)/2.0
-    mid_y = (Vort_y[rdindex] + init_y)/2.0
-    plt.scatter(Vort_x, Vort_y, c='g')
-    plt.scatter(mid_x, mid_y, c='y')
-    #sleep(0.5)
+    mid_x = (Vort_x[rdindex-1] + init_x)/2.0
+    mid_y = (Vort_y[rdindex-1] + init_y)/2.0
+    ax1.scatter(Vort_x, Vort_y, c='g')
+    ax1.scatter(mid_x, mid_y, c='y')
 
-ani = FuncAnimation(plt.gcf, rt_plot, interval=500)
+
+ani = animation.FuncAnimation(fig, rt_plot, interval=500)
 plt.tight_layout()
 plt.show()
